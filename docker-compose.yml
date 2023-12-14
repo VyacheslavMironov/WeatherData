@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3"
 services:
   proxy:
     restart: always
@@ -27,14 +27,14 @@ services:
   db:
     restart: always
     ports:
-      - 5433:5432
+      - 5432:5432
     build:
       context: docker
       dockerfile: db.Dockerfile
     env_file:
       - config/db.env
     volumes:
-      - .:/docker-entrypoint-initdb.d
+      - ./postgres-data:/var/lib/postgresql/data
   composer:
     build:
       context: docker
