@@ -12,13 +12,13 @@ use Illuminate\Queue\SerializesModels;
 class WeatherReaderJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    protected $_context;
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct($context)
     {
-        //
+        $this->_context = $context;
     }
 
     /**
@@ -26,6 +26,14 @@ class WeatherReaderJob implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        /*
+        // Получение данных с api.openweathermap.org
+        $weather_data = new GetWeatherRequestDataService();
+        $weather = new WeatherService();
+        $weather->set_data(
+            $weather_data->call_current()
+        );
+        */
+        dump($this->_context);
     }
 }

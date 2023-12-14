@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Http\Services\GetWeatherRequestDataService;
-use App\Http\Services\WeatherService;
+use App\Jobs\WeatherReaderJob;
 
 class WeatherReaderCommand extends Command
 {
@@ -29,9 +29,6 @@ class WeatherReaderCommand extends Command
     {
         // Получение данных с api.openweathermap.org
         $weather_data = new GetWeatherRequestDataService();
-        $weather = new WeatherService();
-        $weather->set_data(
-            $weather_data->call_current()
-        );
+        WeatherReaderJob::dispatch($weather_data->call_current());
     }
 }

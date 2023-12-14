@@ -1,14 +1,14 @@
 <?php
 namespace App\Http\Services;
 
+use App\Jobs\WeatherReaderJob;
 use Illuminate\Support\Facades\DB;
 
 final class WeatherService
 {
     public function set_data(mixed $context)
     {
-        dump($context);
-        return;
+        dispatch(new WeatherReaderJob($context))->delay(now()->addMinutes(1));
     }
 
     public function get_data()
